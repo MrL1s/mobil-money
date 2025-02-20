@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Code</title>
+    <link href="./src/style.css" rel="stylesheet">
+</head>
+
+<body class="h-full w-full bg-slate-100 p-4">
+    <div class="container h-full m-auto p-auto">
+        <div class="bg-white w-full h-full p-6 rounded-xl shadow-xl text-center flex flex-col justify-center">
+            <div class="justify-start flex flex-col mb-8">
+                <h1 class="text-4xl font-semibold">Enter auth code</h1>
+                <p class="text-slate-500 text-md mb-4">9 digits number</p>
+            </div>
+            <div class="flex w-full justify-center space-x-10 mb-20">
+                <!-- Добавляем уникальный класс для целевых инпутов -->
+                <input type="text" maxlength="1"
+                    class="auth-input w-10 h-8 border-b-3 border-black text-2xl outline-none focus:border-yellow-500 text-center" />
+                <input type="text" maxlength="1"
+                    class="auth-input w-10 h-8 border-b-3 border-black text-2xl outline-none focus:border-yellow-500 text-center" />
+                <input type="text" maxlength="1"
+                    class="auth-input w-10 h-8 border-b-3 border-black text-2xl outline-none focus:border-yellow-500 text-center" />
+                <input type="text" maxlength="1"
+                    class="auth-input w-10 h-8 border-b-3 border-black text-2xl outline-none focus:border-yellow-500 text-center" />
+                <input type="text" maxlength="1"
+                    class="auth-input w-10 h-8 border-b-3 border-black text-2xl outline-none focus:border-yellow-500 text-center" />
+                <input type="text" maxlength="1"
+                    class="auth-input w-10 h-8 border-b-3 border-black text-2xl outline-none focus:border-yellow-500 text-center" />
+            </div>
+            <div class="h-[400px] text-2xl font-semibold grid grid-cols-3 gap-2 mb-4">
+                <button class="p-3 bg-slate-200 rounded-xl">1</button>
+                <button class="p-3 bg-slate-200 rounded-xl">2</button>
+                <button class="p-3 bg-slate-200 rounded-xl">3</button>
+                <button class="p-3 bg-slate-200 rounded-xl">4</button>
+                <button class="p-3 bg-slate-200 rounded-xl">5</button>
+                <button class="p-3 bg-slate-200 rounded-xl">6</button>
+                <button class="p-3 bg-slate-200 rounded-xl">7</button>
+                <button class="p-3 bg-slate-200 rounded-xl">8</button>
+                <button class="p-3 bg-slate-200 rounded-xl">9</button>
+                <button class="p-3 bg-slate-200 rounded-xl">0</button>
+                <button class="p-2 bg-slate-900 flex items-center justify-center rounded-xl">
+                    <svg width="49" height="41" viewBox="0 0 49 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.993" fill-rule="evenodd" clip-rule="evenodd"
+                            d="M48.9521 9.34668C48.9521 16.7517 48.9521 24.1566 48.9521 31.5615C48.0846 35.9284 45.4049 38.6976 40.9131 39.8691C40.4374 39.9505 39.9589 40.0116 39.4775 40.0527C29.4606 40.114 19.4437 40.114 9.42676 40.0527C5.33228 39.6124 2.41334 37.6081 0.669922 34.04C0.353232 33.2215 0.113974 32.3953 -0.0478516 31.5615C-0.0478516 24.1566 -0.0478516 16.7517 -0.0478516 9.34668C0.822383 4.97744 3.50207 2.20823 7.99121 1.03906C8.46687 0.95777 8.94539 0.896569 9.42676 0.855471C19.4437 0.79427 29.4606 0.79427 39.4775 0.855471C43.5698 1.29304 46.4888 3.29727 48.2344 6.86817C48.5511 7.68672 48.7903 8.51289 48.9521 9.34668ZM17.2744 11.6416C17.7605 11.7104 18.2071 11.8787 18.6143 12.1465C20.5455 14.0143 22.4916 15.8655 24.4521 17.7002C26.4792 15.7711 28.5209 13.8587 30.5771 11.9629C31.8855 11.4187 32.8585 11.7707 33.4961 13.0186C33.6405 13.6881 33.5129 14.3 33.1133 14.8545C31.166 16.707 29.236 18.5736 27.3232 20.4541C29.3344 22.3985 31.3282 24.3568 33.3047 26.3291C33.8745 27.9289 33.3003 28.9081 31.582 29.2666C31.1139 29.1883 30.6833 29.02 30.29 28.7617C28.3587 26.8939 26.4127 25.0427 24.4521 23.208C22.4251 25.1371 20.3834 27.0495 18.3271 28.9453C17.0188 29.4895 16.0458 29.1375 15.4082 27.8897C15.2638 27.2201 15.3914 26.6082 15.791 26.0537C17.7383 24.2013 19.6683 22.3347 21.5811 20.4541C19.6683 18.5736 17.7383 16.707 15.791 14.8545C15.1261 13.8318 15.2378 12.8985 16.126 12.0547C16.4897 11.8329 16.8726 11.6952 17.2744 11.6416Z"
+                            fill="#FFAE00" />
+                    </svg>
+                </button>
+                <button class="p-3 bg-slate-300 rounded-xl">C</button>
+            </div>
+            <a href="./glav.html" class="w-full py-7 bg-yellow-500 text-black text-xl font-semibold rounded-xl">OK</a>
+        </div>
+    </div>
+    <script>
+        // Получаем только целевые инпуты по классу
+        const inputs = document.querySelectorAll('.auth-input');
+        // Получаем все кнопки с цифрами и кнопку "C"
+        const buttons = document.querySelectorAll('.grid button');
+        const clearButton = document.querySelector('.bg-slate-300');
+
+        // Текущий активный инпут
+        let currentInputIndex = 0;
+
+        // Функция для перехода к следующему инпуту
+        const moveToNextInput = () => {
+            if (currentInputIndex < inputs.length - 1) {
+                currentInputIndex++;
+                inputs[currentInputIndex].focus();
+            }
+        };
+
+        // Функция для перехода к предыдущему инпуту
+        const moveToPreviousInput = () => {
+            if (currentInputIndex > 0) {
+                currentInputIndex--;
+                inputs[currentInputIndex].focus();
+            }
+        };
+
+        // Обработчик для цифровых кнопок
+        buttons.forEach(button => {
+            if (!button.classList.contains('bg-slate-300')) { // Исключаем кнопку "C"
+                button.addEventListener('click', () => {
+                    if (currentInputIndex < inputs.length) {
+                        inputs[currentInputIndex].value = button.textContent; // Вставляем цифру
+                        moveToNextInput(); // Переходим к следующему инпуту
+                    }
+                });
+            }
+        });
+
+        // Обработчик для кнопки "C" (очистка)
+        clearButton.addEventListener('click', () => {
+            inputs.forEach(input => input.value = ''); // Очищаем все инпуты
+            currentInputIndex = 0; // Сбрасываем индекс
+            inputs[currentInputIndex].focus(); // Фокус на первый инпут
+        });
+
+        // Обработчик для ручного ввода в инпуты
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1) {
+                    moveToNextInput();
+                }
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Backspace' && input.value.length === 0) {
+                    moveToPreviousInput();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
