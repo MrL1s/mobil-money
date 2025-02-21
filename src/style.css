@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+#data-period {
+    transition: transform 0.3s ease;
+}
+
+#data-period.hidden {
+    transform: translateY(100%);
+}

@@ -14,15 +14,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Проверяем, существуют ли элементы
     if (showPeriod && bgShow && bgShowTwo && targetElement && targetElementTwo && showStatus && dataPeriodTwo && setDate && dataPeriod) {
+
       // Открытие модального окна периода
       showPeriod.addEventListener('click', () => {
         targetElement.classList.remove('hidden');
       });
 
+      // свайпы ------------------
+      let startY = 0; // Начальная позиция касания
+      let isDragging = false;
+
+      dataPeriod.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY; // Запоминаем начальную позицию Y
+        isDragging = true;
+      });
+
+      dataPeriod.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const currentY = e.touches[0].clientY; // Текущая позиция Y
+        const deltaY = currentY - startY; // Разница между начальной и текущей позицией
+
+        // Если свайп вниз (deltaY > 0) и достаточно большой
+        if (deltaY > 50) {
+          targetElement.classList.add('hidden'); // Закрываем модальное окно
+          isDragging = false; // Сбрасываем флаг
+        }
+      });
+
+      dataPeriod.addEventListener('touchend', () => {
+        isDragging = false; // Сбрасываем флаг
+      });
+
+      // Обработчики для мыши
+      dataPeriod.addEventListener('mousedown', (e) => {
+        startY = e.clientY;
+        isDragging = true;
+      });
+
+      dataPeriod.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const currentY = e.clientY;
+        const deltaY = currentY - startY;
+
+        // Если свайп вниз (deltaY > 0) и достаточно большой
+        if (deltaY > 50) {
+          targetElement.classList.add('hidden');
+          isDragging = false; // Сбрасываем флаг
+        }
+      });
+
+      dataPeriod.addEventListener('mouseup', () => {
+        isDragging = false; // Сбрасываем флаг
+      });
+
+
+      // свайпы ------------------
+
       // Закрытие модального окна периода
       bgShow.addEventListener('click', () => {
         targetElement.classList.add('hidden');
       });
+
+      // Функция для закрытия модального окна с анимацией
+      function closeModal() {
+        dataPeriod.classList.add('translate-y-full'); // Анимация закрытия
+        setTimeout(() => {
+          targetElement.classList.add('hidden');
+        }, 300); // Ждем завершения анимации
+      }
 
       // Открытие модального окна статуса платежа
       showStatus.addEventListener('click', () => {
@@ -52,6 +111,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const digitButtons = document.querySelectorAll('.digit-button');
   // Получаем кнопку "C" по новому классу clear-but
   const clearButton = document.querySelector('.clear-but');
+  // Получаем кнопку удалить 1 цифру
+  const digitDeleteButton = document.querySelector('.digit-delete');
+
+  // Текущий активный инпут
+  let currentInputIndex = 0;
+
+  // Функция для объединения всех цифр в одну строку
+  const getCombinedDigits = () => {
+    return Array.from(inputs).map(input => input.value).join('');
+
+  };
+
+  // Функция для удаления последней цифры в текущем инпуте
+  const deleteLastDigit = () => {
+    if (inputs[currentInputIndex].value.length > 0) {
+      inputs[currentInputIndex].value = inputs[currentInputIndex].value.slice(0, -1);
+    } else if (currentInputIndex > 0) {
+      // Если текущий инпут пуст, переходим к предыдущему и удаляем последнюю цифру
+      currentInputIndex--;
+      inputs[currentInputIndex].value = inputs[currentInputIndex].value.slice(0, -1);
+      inputs[currentInputIndex].focus();
+    }
+    console.log('Текущее значение:', getCombinedDigits()); // Выводим объединенную строку
+  };
+
+  // Проверяем, существует ли кнопка удалить 1 цифру
+  if (digitDeleteButton) {
+    digitDeleteButton.addEventListener('click', deleteLastDigit);
+  } else {
+    console.error('Элемент с классом .digit-delete не найден.');
+  }
 
   // Проверяем, существует ли кнопка "C"
   if (clearButton) {
@@ -59,13 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
       inputs.forEach(input => input.value = ''); // Очищаем все инпуты
       currentInputIndex = 0; // Сбрасываем индекс
       inputs[currentInputIndex].focus(); // Фокус на первый инпут
+      console.log('Текущее значение:', getCombinedDigits()); // Выводим объединенную строку
     });
   } else {
     console.error('Элемент с классом .clear-but не найден.');
   }
-
-  // Текущий активный инпут
-  let currentInputIndex = 0;
 
   // Функция для перехода к следующему инпуту
   const moveToNextInput = () => {
@@ -89,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentInputIndex < inputs.length) {
         inputs[currentInputIndex].value = button.textContent; // Вставляем цифру
         moveToNextInput(); // Переходим к следующему инпуту
+        console.log('Текущее значение:', getCombinedDigits()); // Выводим объединенную строку
       }
     });
   });
@@ -99,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (input.value.length === 1) {
         moveToNextInput();
       }
+      console.log('Текущее значение:', getCombinedDigits()); // Выводим объединенную строку
     });
 
     input.addEventListener('keydown', (event) => {
@@ -107,6 +197,104 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  //---------------------------------------------------------------
+  // логика 2 ввода цифр в получить оплату
+
+  // Получаем все инпуты с классом auth-input
+
+  const inputsTwo = document.querySelectorAll('.auth-input-two');
+  // Получаем все кнопки с цифрами
+  const digitButtonsTwo = document.querySelectorAll('.digit-button-two');
+  // Получаем кнопку "C" по новому классу clear-but
+  const clearButtonTwo = document.querySelector('.clear-but-two');
+  // Получаем кнопку удалить 1 цифру
+  const digitDeleteButtonTwo = document.querySelector('.digit-delete-two');
+
+  // Текущий активный инпут
+  let currentInputIndexTwo = 0;
+
+  // Функция для объединения всех цифр в одну строку
+  const getCombinedDigitsTwo = () => {
+    return Array.from(inputsTwo).map(input => input.value).join('');
+
+  };
+
+  // Функция для удаления последней цифры в текущем инпуте
+  const deleteLastDigitTwo = () => {
+    if (inputsTwo[currentInputIndexTwo].value.length > 0) {
+      inputsTwo[currentInputIndexTwo].value = inputsTwo[currentInputIndexTwo].value.slice(0, -1);
+    } else if (currentInputIndexTwo > 0) {
+      // Если текущий инпут пуст, переходим к предыдущему и удаляем последнюю цифру
+      currentInputIndexTwo--;
+      inputsTwo[currentInputIndexTwo].value = inputsTwo[currentInputIndexTwo].value.slice(0, -1);
+      inputsTwo[currentInputIndexTwo].focus();
+    }
+    console.log('Текущее значение:', getCombinedDigitsTwo()); // Выводим объединенную строку
+  };
+
+  // Проверяем, существует ли кнопка удалить 1 цифру
+  if (digitDeleteButtonTwo) {
+    digitDeleteButtonTwo.addEventListener('click', deleteLastDigitTwo);
+  } else {
+    console.error('Элемент с классом .digit-delete не найден.');
+  }
+
+  // Проверяем, существует ли кнопка "C"
+  if (clearButtonTwo) {
+    clearButtonTwo.addEventListener('click', () => {
+      inputsTwo.forEach(input => input.value = ''); // Очищаем все инпуты
+      currentInputIndexTwo = 0; // Сбрасываем индекс
+      inputsTwo[currentInputIndexTwo].focus(); // Фокус на первый инпут
+      console.log('Текущее значение:', getCombinedDigitsTwo()); // Выводим объединенную строку
+    });
+  } else {
+    console.error('Элемент с классом .clear-but не найден.');
+  }
+
+  // Функция для перехода к следующему инпуту
+  const moveToNextInputTwo = () => {
+    if (currentInputIndexTwo < inputsTwo.length - 1) {
+      currentInputIndexTwo++;
+      inputsTwo[currentInputIndexTwo].focus();
+    }
+  };
+
+  // Функция для перехода к предыдущему инпуту
+  const moveToPreviousInputTwo = () => {
+    if (currentInputIndexTwo > 0) {
+      currentInputIndexTwo--;
+      inputsTwo[currentInputIndexTwo].focus();
+    }
+  };
+
+  // Обработчик для цифровых кнопок
+  digitButtonsTwo.forEach(button => {
+    button.addEventListener('click', () => {
+      if (currentInputIndexTwo < inputsTwo.length) {
+        inputsTwo[currentInputIndexTwo].value = button.textContent; // Вставляем цифру
+        moveToNextInputTwo(); // Переходим к следующему инпуту
+        console.log('Текущее значение:', getCombinedDigitsTwo()); // Выводим объединенную строку
+      }
+    });
+  });
+
+  // Обработчик для ручного ввода в инпуты
+  inputsTwo.forEach((input, index) => {
+    input.addEventListener('input', () => {
+      if (input.value.length === 1) {
+        moveToNextInputTwo();
+      }
+      console.log('Текущее значение:', getCombinedDigitsTwo()); // Выводим объединенную строку
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Backspace' && input.value.length === 0) {
+        moveToPreviousInputTwo();
+      }
+    });
+  });
+
+  //-------------------------------------------------------
 
   // Логика для календаря
   const currentMonthElement = document.getElementById('currentMonth');
